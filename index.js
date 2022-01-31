@@ -11,6 +11,7 @@
         this.radian = radian;
         this.circular = circular || new Point2D(0, 0);
         this.defined = { x: x, y: y, radian: radian, circular: circular };
+        this.max = randomIntFromRange(150, 300);
     }
     Particle.prototype = {
         draw: function () {
@@ -21,15 +22,14 @@
             c.closePath();
         },
         update: function () {
-            const max = 250;
             this.x = this.defined.x + Math.cos(this.radian) * this.circular.x;
             this.y = this.defined.y + Math.sin(this.radian) * this.circular.y;
             this.radian += this.velocity.radian;
             this.circular.x += this.velocity.circular.x;
             this.circular.y += this.velocity.circular.y;
-            if (this.circular.x > max || this.circular.x <= 0)
+            if (this.circular.x > this.max || this.circular.x <= 0)
                 this.velocity.circular.x = -this.velocity.circular.x;
-            if (this.circular.y > max || this.circular.y <= 0)
+            if (this.circular.y > this.max || this.circular.y <= 0)
                 this.velocity.circular.y = -this.velocity.circular.y;
             this.draw();
         }
@@ -56,7 +56,7 @@
                 x: 0,
                 y: 0,
                 radian: randomFromRange(0.001, 0.01),
-                circular: new Point2D(randomFromRange(1.7, 2), randomFromRange(1.7, 2))
+                circular: new Point2D(2, 2)
             };
             const circular = new Point2D(1, 1);
             let radian = randomFromRange(0, 2 * 3.14159);
